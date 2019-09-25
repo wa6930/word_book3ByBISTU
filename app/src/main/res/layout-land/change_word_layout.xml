@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/cw_text_word_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="所记单词(Word)："
+        android:textSize="10pt"/>
+
+    <EditText
+        android:id="@+id/cw_edit_word_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="请输入想输入的单词"
+        android:textSize="10pt"
+    />
+
+    <TextView
+        android:id="@+id/cw_text_tran_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="翻译："
+        android:textSize="10pt"/>
+
+    <EditText
+        android:id="@+id/cw_edit_tran_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="10pt"
+        android:hint="请输入翻译"
+       />
+
+
+</LinearLayout>

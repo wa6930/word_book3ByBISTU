@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/select_menu_edi_item"
+        android:title="编辑"
+        ></item>
+    <item
+        android:id="@+id/select_menu_delete_item"
+        android:title="删除"
+        ></item>
+
+</menu>

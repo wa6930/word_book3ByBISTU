@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/card_selector"
+    app:cardCornerRadius="4dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/search_word_name"
+            android:text="testOfVoid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/search_word_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:text="这里是翻译，翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译翻译"
+            android:textSize="16dp" />
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

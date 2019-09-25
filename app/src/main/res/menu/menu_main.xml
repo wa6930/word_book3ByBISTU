@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.usedsharedpreferences.by.word_book3bybistu.MainActivity">
+
+
+    <item
+        android:id="@+id/search_word"
+        android:icon="@drawable/check"
+        android:title="查找"
+        app:showAsAction="ifRoom"/>
+
+
+    <item
+        android:id="@+id/refresh_word"
+        android:icon="@drawable/refresh"
+        android:title="刷新"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>
