@@ -4,7 +4,6 @@ package com.example.usedsharedpreferences.by.word_book3bybistu.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,17 +21,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.usedsharedpreferences.by.word_book3bybistu.R;
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Sentence;
+import com.example.usedsharedpreferences.by.word_book3bybistu.R;
 
 import java.util.List;
 import java.util.Locale;
 
 public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.ViewHolder> {
 
-    private  Handler handler;
+
     private Context mContext;
 
+    public netSentenceAdapter(Context mContext, List<Sentence> sentenceList) {
+        this.mContext = mContext;
+        this.sentenceList = sentenceList;
+    }
 
     private List<Sentence> sentenceList;
     private FragmentTransaction transaction;
@@ -68,21 +71,38 @@ public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.
         ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.setFragmentManager(manager);
         final CardView cardView = (CardView) view;
-        final TextView sentence_no=(TextView)view.findViewById(R.id.sentence_no);
+        final TextView sentence_no = (TextView) view.findViewById(R.id.sentence_no);
         final TextView sentence_eng = (TextView) view.findViewById(R.id.sentence_english);
         final TextView sentence_tran = (TextView) view.findViewById(R.id.sentence_translate);
-
 
 
         //final ImageButton Engv2 = (ImageButton) view.findViewById(R.id.buttonEngV2);//在返回视图之前，建立点击事件与映射关系
         sentence_eng.setOnClickListener(new View.OnClickListener() {//点击例句事件
             @Override
             public void onClick(View view) {
+//                textToSpeech = new TextToSpeech(mContext, new TextToSpeech.OnInitListener() {
+//                    @Override
+//                    public void onInit(int status) {
+//                        if (status == TextToSpeech.SUCCESS) {
+//                            Log.i(TAG, "onInit ClickAme1: 调用到发声步骤，发声语句为：" + sentence_eng.getText().toString());
+//                            int result = textToSpeech.setLanguage(Locale.ENGLISH);
+//                            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+//                                Log.i(TAG, "onInit: ClickAme1,发音失败");
+//                                Toast.makeText(mContext, "抱歉！该内容不支持网络发音", Toast.LENGTH_LONG).show();
+//                            } else {
+//                                Log.i(TAG, "onInit:ClickAme1  开始阅读");
+//                                textToSpeech.setSpeechRate(1f);
+//                                textToSpeech.speak(sentence_eng.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+//                            }
+//                        }
+//
+//                    }
+//                });
                 textToSpeech=new TextToSpeech(mContext, new TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(int status) {
                         if(status==TextToSpeech.SUCCESS){
-                            Log.i(TAG, "onInit ClickAme1: 调用到发声步骤，发声语句为："+sentence_eng.getText().toString());
+                            Log.i(TAG, "onInit ClickAme1: 调用到发声步骤，发声单词为："+sentence_eng.getText().toString());
                             int result=textToSpeech.setLanguage(Locale.ENGLISH);
                             if(result==TextToSpeech.LANG_MISSING_DATA||result==TextToSpeech.LANG_NOT_SUPPORTED){
                                 Log.i(TAG, "onInit: ClickAme1,发音失败");
@@ -90,7 +110,7 @@ public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.
                             }
                             else{
                                 Log.i(TAG, "onInit:ClickAme1  开始阅读");
-                                textToSpeech.setSpeechRate(1f);
+                                textToSpeech.setSpeechRate(1.2f);
                                 textToSpeech.speak(sentence_eng.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
                             }
                         }
@@ -125,7 +145,6 @@ public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.
 //                }
 
 
-
             }
         });
         cardView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -140,13 +159,13 @@ public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.
                         switch (menuItem.getItemId()) {
                             case R.id.select_menu_edi_item:
                                 Log.i(TAG, "onClick select_edit_menu: " + sentence_eng.getText());//
-                                AlertDialog.Builder chang_word=new AlertDialog.Builder(mContext);
+                                AlertDialog.Builder chang_word = new AlertDialog.Builder(mContext);
                                 chang_word.setTitle("编辑");
-                                LayoutInflater Changinflater=LayoutInflater.from(mContext);
-                                View view1=Changinflater.inflate(R.layout.change_word_layout,null);
+                                LayoutInflater Changinflater = LayoutInflater.from(mContext);
+                                View view1 = Changinflater.inflate(R.layout.change_word_layout, null);
                                 chang_word.setView(view1);
-                                final EditText edit_word=(EditText)view1.findViewById(R.id.cw_edit_word_change);
-                                final EditText edit_tran=(EditText)view1.findViewById(R.id.cw_edit_tran_change);
+                                final EditText edit_word = (EditText) view1.findViewById(R.id.cw_edit_word_change);
+                                final EditText edit_tran = (EditText) view1.findViewById(R.id.cw_edit_tran_change);
                                 edit_word.setText(sentence_eng.getText().toString());
                                 edit_tran.setText(sentence_tran.getText().toString());//单词和翻译初始化为未修改前的值
 
@@ -234,14 +253,12 @@ public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.
         public ViewHolder(View view) {
             super(view);
             cardView = (CardView) view;
-            sentence_no=(TextView)view.findViewById(R.id.sentence_no);
+            sentence_no = (TextView) view.findViewById(R.id.sentence_no);
             sentence_eng = (TextView) view.findViewById(R.id.sentence_english);
             sentence_tran = (TextView) view.findViewById(R.id.sentence_translate);
 
         }
     }
-
-
 
 
 }

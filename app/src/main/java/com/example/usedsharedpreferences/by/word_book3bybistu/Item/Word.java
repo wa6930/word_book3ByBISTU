@@ -10,7 +10,10 @@ public class Word {
 
     public Word(String word, String translate) {
         this.word = word;
-        this.translate = translate;
+        if(translate.equals("")){
+            this.translate="无内容";
+        }
+        else this.translate = translate;
 
     }
 

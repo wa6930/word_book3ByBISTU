@@ -63,12 +63,12 @@ public class WordSearchAdapter extends RecyclerView.Adapter<WordSearchAdapter.Se
             }
         });
 //        cardView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                //暂时不重建长点事件，可能优化此处v1,添加单词本，朗读//TODO
-//                return false;
-//            }
-//        });
+////            @Override
+////            public boolean onLongClick(View view) {
+////                //暂时不重建长点事件，可能优化此处v1,添加单词本，朗读//TODO
+////                return false;
+////            }
+////        });
 
         return searchViewHolder;
     }

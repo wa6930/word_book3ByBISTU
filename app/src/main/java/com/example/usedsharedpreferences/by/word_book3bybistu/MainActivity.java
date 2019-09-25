@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
                 chang_word.setPositiveButton("提交", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (edit_word.getText().toString().equals("") || edit_tran.getText().toString().equals("")) {
+                        if (edit_word.getText().toString().equals("")) {
                             Snackbar.make(view, "输入有误，添加失败", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         } else {
 //                            String word = edit_word.getText().toString();
@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
                 //Bundle bundle=new Bundle();
                 //bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) wordList);
                 Intent intent = new Intent(MainActivity.this, SearchWordActivity.class);
+                //intent.putStringArrayListExtra()
                 //intent.putExtra(bundle);
                 startActivityForResult(intent, 1);//返回值来添加list
 

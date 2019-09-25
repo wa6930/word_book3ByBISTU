@@ -21,20 +21,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/d_sentence_list"
         android:layout_width="match_parent"
-        android:layout_height="242dp"
+        android:layout_height="380dp"
 
         android:layout_margin="15dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="12dp"
         android:background="#dddddd"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/d_word_translation"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="120dp"
         android:layout_margin="15dp"
         android:layout_marginTop="28dp"
         android:background="#dddddd"
@@ -103,7 +103,7 @@
     <TextView
         android:id="@+id/d_word_discation"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="120dp"
         android:layout_margin="15dp"
         android:background="#dddddd"
         android:scrollbars="horizontal"
