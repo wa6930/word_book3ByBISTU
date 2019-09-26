@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -176,10 +177,35 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        /****
+         *
+         *
+         *显示帮助窗口
+         *
+         * **/
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Toast.makeText(this, "TODO1", Toast.LENGTH_LONG).show();
+            case R.id.action_help:
+                //Toast.makeText(this, "TODO1", Toast.LENGTH_LONG).show();
+                /**********生成新界面**********/
+                AlertDialog.Builder chang_word = new AlertDialog.Builder(MainActivity.this);
+                chang_word.setTitle("帮助");
+                LayoutInflater Changinflater = getLayoutInflater();
+                final View view1 = Changinflater.inflate(R.layout.help_layout, null);
+                chang_word.setView(view1);
+                final TextView textView=(TextView)view1.findViewById(R.id.help_text);
+                final String help="软件由耳机壳制作，仅用作课堂学习，图片来自互联网\n"+
+                            "单词数据库为本地数据库，词汇量10万+，例句为网络例句，点击例句可发音\n"+
+                            "";
+                textView.setText(help);
+                chang_word.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                chang_word.show();
                 break;
+
             case R.id.search_word://点击搜索按钮
                 //Toast.makeText(this, "TODO2", Toast.LENGTH_LONG).show();
                 //Bundle bundle=new Bundle();
