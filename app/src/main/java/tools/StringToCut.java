@@ -19,7 +19,7 @@ public class StringToCut {
         String sentence = "";
         String sentence_tran = "";
         for (int i = 0; i < strArr.length; i++) {
-            Log.i(TAG, "CutStringToSentenceList show StrArr[" + i + "]:" + strArr[i]);
+            //Log.i(TAG, "CutStringToSentenceList show StrArr[" + i + "]:" + strArr[i]);
             if (tag == 0) {
                 sentence = sentence + strArr[i];
 

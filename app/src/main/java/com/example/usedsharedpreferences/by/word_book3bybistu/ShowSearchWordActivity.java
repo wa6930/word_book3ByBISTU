@@ -24,16 +24,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-public class ShowWordActivity extends AppCompatActivity {
+public class ShowSearchWordActivity extends AppCompatActivity {
     private String TAG="ErJike's ShowWordActivity:";
     TextToSpeech textToSpeech;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.word_detail_include_layout);
+        setContentView(R.layout.search_word_detail_include_layout);
         Intent intent=getIntent();
         String word=intent.getStringExtra("word");//获得点击时的单词
-        final DBManager dbManager=new DBManager(ShowWordActivity.this);//引入数据库
+        final DBManager dbManager=new DBManager(ShowSearchWordActivity.this);//引入数据库
         dbManager.openDatabase();//初始化
         List<WordDetail> wordDetailList=dbManager.tureQuery(word);//查询单词
         List<Sentence> sentenceList = new ArrayList<Sentence>();
@@ -47,10 +47,11 @@ public class ShowWordActivity extends AppCompatActivity {
         TextView wordTranslate=(TextView)findViewById(R.id.search_d_word_translation);
         TextView wordDiscation=(TextView)findViewById(R.id.search_d_word_discation);
         ImageView readWord=(ImageView)findViewById(R.id.search_d_word_read);
+        ImageView addWordBook=(ImageView)findViewById(R.id.search_add_wordOnbook);
         readWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textToSpeech=new TextToSpeech(ShowWordActivity.this, new TextToSpeech.OnInitListener() {
+                textToSpeech=new TextToSpeech(ShowSearchWordActivity.this, new TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(int status) {
                         if(status==TextToSpeech.SUCCESS){
@@ -58,7 +59,7 @@ public class ShowWordActivity extends AppCompatActivity {
                             int result=textToSpeech.setLanguage(Locale.ENGLISH);
                             if(result==TextToSpeech.LANG_MISSING_DATA||result==TextToSpeech.LANG_NOT_SUPPORTED){
                                 Log.i(TAG, "onInit: ClickAme1,发音失败");
-                                Toast.makeText(ShowWordActivity.this,"抱歉！该内容不支持网络发音",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ShowSearchWordActivity.this,"抱歉！该内容不支持网络发音",Toast.LENGTH_LONG).show();
                             }
                             else{
                                 Log.i(TAG, "onInit:ClickAme1  开始阅读");
@@ -100,13 +101,13 @@ public class ShowWordActivity extends AppCompatActivity {
 
         }
         else{
-            Toast.makeText(ShowWordActivity.this,"数据库返回类型为空啦，请检查数据库查询语句或数据库。",Toast.LENGTH_LONG).show();
+            Toast.makeText(ShowSearchWordActivity.this,"数据库返回类型为空啦，请检查数据库查询语句或数据库。",Toast.LENGTH_LONG).show();
             wordName.setText("数据库内无此单词");
             wordPhonetic.setText("无音标");
             wordTranslate.setText("无对应中文翻译");
             wordDiscation.setText("无对应英文解释");
         }
-        sentenceList.addAll(GetSentence.getSentenceList(word,ShowWordActivity.this));
+        sentenceList.addAll(GetSentence.getSentenceList(word, ShowSearchWordActivity.this));
         Iterator Sitr=sentenceList.iterator();
         while(Sitr.hasNext()){
             Sentence sentence=(Sentence) Sitr.next();
@@ -114,9 +115,9 @@ public class ShowWordActivity extends AppCompatActivity {
 
 
         }
-        GridLayoutManager layoutManager = new GridLayoutManager(ShowWordActivity.this, 1);//左右显示一个fragment
+        GridLayoutManager layoutManager = new GridLayoutManager(ShowSearchWordActivity.this, 1);//左右显示一个fragment
         wordSentence.setLayoutManager(layoutManager);
-        netSentenceAdapter sentenceAdapter=new netSentenceAdapter(ShowWordActivity.this,sentenceList);
+        netSentenceAdapter sentenceAdapter=new netSentenceAdapter(ShowSearchWordActivity.this,sentenceList);
         wordSentence.setAdapter(sentenceAdapter);
 
 

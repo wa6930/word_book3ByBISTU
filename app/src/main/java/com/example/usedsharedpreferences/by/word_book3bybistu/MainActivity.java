@@ -1,7 +1,9 @@
 package com.example.usedsharedpreferences.by.word_book3bybistu;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Word;
 import com.example.usedsharedpreferences.by.word_book3bybistu.adapter.WordAdapter;
+import com.example.usedsharedpreferences.by.word_book3bybistu.dbchange.DBManager;
+import com.example.usedsharedpreferences.by.word_book3bybistu.dbchange.DBwordStorage;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -73,14 +77,14 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
     private FragmentTransaction transaction;
     private static String TAG = "ErJike";
     private Word[] words = new Word[]{
-            new Word("a", "一个"),
-            new Word("b", "bbbbbbbbbbbbbb"),
-            new Word("erjike", "耳机壳")
-
+//            new Word("a", "一个"),
+//            new Word("b", "bbbbbbbbbbbbbb"),
+//            new Word("erjike", "耳机壳")
     };
 
     private List<Word> wordList = new ArrayList<>();//链表的增删改查需要用到
     private WordAdapter adapter;
+    private DBwordStorage dbHelper;
     RecyclerView recyclerView;
 
 
@@ -90,7 +94,10 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        initWrods();
+        dbHelper=new DBwordStorage(MainActivity.this,"wordStore.db",null,1);
+        //initWrods();//将word数组转化为链表
+        SQLiteDatabase db=dbHelper.getWritableDatabase();//获取数据库后调用查找方法
+        wordList.addAll(DBManager.WordStorQuery(db,MainActivity.this));//读取数据库
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);//找到对应的recyclerView
         GridLayoutManager layoutManager = new GridLayoutManager(this, 1);//左右显示一个fragment
         recyclerView.setLayoutManager(layoutManager);//绑定二者
@@ -178,13 +185,39 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
                 //Bundle bundle=new Bundle();
                 //bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) wordList);
                 Intent intent = new Intent(MainActivity.this, SearchWordActivity.class);
-                //intent.putStringArrayListExtra()
-                //intent.putExtra(bundle);
+                Iterator iterator=wordList.iterator();
+                ArrayList<String> wordString=new ArrayList<String>();//用于传递单词链表到搜索界面，从而判断是否添加过生词本中
+                while(iterator.hasNext()){
+                    Word word=(Word)iterator.next();
+                    if(!wordString.contains(word.getWord())){
+                        wordString.add(word.getWord());
+                    }
+
+                }
+                intent.putStringArrayListExtra("wordList",wordString);
                 startActivityForResult(intent, 1);//返回值来添加list
 
                 break;
+                /***
+                 *
+                 *用于更新本地表单，从而实现数据持久化
+                 *
+                 * **/
             case R.id.refresh_word:
-                Toast.makeText(this, "TODO3", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "TODO3", Toast.LENGTH_LONG).show();
+                //dbHelper=new DBwordStorage(MainActivity.this,"wordStore.db",null,1);
+                SQLiteDatabase database=dbHelper.getWritableDatabase();
+                database.delete(DBwordStorage.TABLE_NAME,null,null);//删除表中所有元素
+                Iterator iter=wordList.iterator();
+                while(iter.hasNext()){
+                    Word word=(Word)iter.next();
+                    ContentValues contentValues=new ContentValues();
+                    contentValues.put(DBwordStorage.TABLE_LIST_1,word.getWord());
+                    contentValues.put(DBwordStorage.TABLE_LIST_2,word.getTranslate());
+                    database.insert(DBwordStorage.TABLE_NAME,null,contentValues);
+                    Log.i(TAG, "onOptionsItemSelected: 同步本地表单:word"+word.getWord()+",translate:"+word.getTranslate());
+                }
+                Toast.makeText(MainActivity.this,"同步成功！",Toast.LENGTH_SHORT).show();
                 break;
             default:
         }
@@ -222,5 +255,12 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
         }
 
 
+    }
+
+    @Override
+    protected void onDestroy() {//关闭程序时保存单词表数据库
+
+
+        super.onDestroy();
     }
 }

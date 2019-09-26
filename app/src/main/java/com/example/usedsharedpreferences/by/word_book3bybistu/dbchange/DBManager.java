@@ -1,6 +1,7 @@
 package com.example.usedsharedpreferences.by.word_book3bybistu.dbchange;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -58,7 +59,7 @@ public class DBManager {
         return database;
     }
 
-    private SQLiteDatabase openDatabase(String dbfile) {
+        private SQLiteDatabase openDatabase(String dbfile) {
         try {
             if (!(new File(dbfile).exists())) {//判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
 
@@ -132,6 +133,30 @@ public class DBManager {
         } else {
             Toast.makeText(context, "该单词在词库中不存在！", Toast.LENGTH_LONG).show();
         }
+
+        search_cursor.close();
+        return wordDetailArrayList;
+    }
+
+    @SuppressLint("LongLogTag")
+    public static ArrayList<Word> WordStorQuery(SQLiteDatabase db, Context context) {//用于精确查找某个单词在数据库中
+        String TAG="ErJike's wordStore log in";
+        ArrayList<Word> wordDetailArrayList = new ArrayList<Word>();
+        //Log.i(TAG, "tureQuery: str:"+str);//可以获得
+        Cursor search_cursor = db.query(DBwordStorage.TABLE_NAME, new String[]{DBwordStorage.TABLE_LIST_1, DBwordStorage.TABLE_LIST_2}, DBwordStorage.TABLE_LIST_1+" like ? ",
+                new String[]{"%%"}, null, null, null);
+        Log.i(TAG, "query: 查询完成");
+
+        while (search_cursor.moveToNext()) {
+            String wordName = search_cursor.getString(search_cursor.getColumnIndex(DBwordStorage.TABLE_LIST_1));
+            String wordtranslation=search_cursor.getString(search_cursor.getColumnIndex(DBwordStorage.TABLE_LIST_2));
+
+            if (!wordDetailArrayList.contains(new Word(wordName,wordtranslation))) {
+                wordDetailArrayList.add(new Word(wordName,wordtranslation));
+                Log.i(TAG, "query word name:" + wordName+",wordtranslation:" + wordtranslation);
+            }
+        }
+            //Toast.makeText(context, "本地存储内容为空，请尝试添加单词！", Toast.LENGTH_LONG).show();
 
         search_cursor.close();
         return wordDetailArrayList;
