@@ -2,6 +2,7 @@ package com.example.usedsharedpreferences.by.word_book3bybistu.dbchange;
 
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -126,8 +127,8 @@ public class DBManager {
             String wordDefinition=search_cursor.getString(search_cursor.getColumnIndex(TAB_FIELD3));
             String wordtranslation=search_cursor.getString(search_cursor.getColumnIndex(TAB_FIELD4));
 
-            if (!wordDetailArrayList.contains(new WordDetail(wordName,wordPhonetic,wordDefinition,wordtranslation))) {
-                wordDetailArrayList.add(new WordDetail(wordName,wordPhonetic,wordDefinition,wordtranslation));
+            if (!wordDetailArrayList.contains(new WordDetail(wordName,wordPhonetic,wordtranslation,wordDefinition))) {
+                wordDetailArrayList.add(new WordDetail(wordName,wordPhonetic,wordtranslation,wordDefinition));
                 Log.i(TAG, "query word name:" + wordName + ",wordPhonetic:" + wordPhonetic+",wordDefinition:" + wordDefinition+",wordtranslation:" + wordtranslation);
             }
         } else {
@@ -160,5 +161,33 @@ public class DBManager {
 
         search_cursor.close();
         return wordDetailArrayList;
+    }
+    @SuppressLint("LongLogTag")
+    public static boolean addWordToSqlite(SQLiteDatabase db, Word word,Context context) {//用于添加单词到单词本
+        String TAG="ErJike's wordStore log in";
+        ArrayList<Word> wordDetailArrayList = new ArrayList<Word>();
+        //Log.i(TAG, "tureQuery: str:"+str);//可以获得
+        Cursor search_cursor = db.query(DBwordStorage.TABLE_NAME, new String[]{DBwordStorage.TABLE_LIST_1, DBwordStorage.TABLE_LIST_2}, DBwordStorage.TABLE_LIST_1+"=?",
+                new String[]{word.getWord()}, null, null, null);
+        Log.i(TAG, "query: 查询完成");
+
+        if (search_cursor.moveToNext()) {//存在即更新
+            ContentValues contentValues=new ContentValues();
+            contentValues.put(DBwordStorage.TABLE_LIST_1,word.getWord());
+            contentValues.put(DBwordStorage.TABLE_LIST_2,word.getTranslate());
+           db.update(DBwordStorage.TABLE_NAME,contentValues,DBwordStorage.TABLE_LIST_1+"=?",new String[]{word.getWord()});
+           Toast.makeText(context,"对应单词内容更新成功",Toast.LENGTH_SHORT).show();
+        }
+        else {//不存在即添加
+            ContentValues contentValues=new ContentValues();
+            contentValues.put(DBwordStorage.TABLE_LIST_1,word.getWord());
+            contentValues.put(DBwordStorage.TABLE_LIST_2,word.getTranslate());
+            db.insert(DBwordStorage.TABLE_NAME,null,contentValues);
+            Toast.makeText(context,"对应单词内容添加成功",Toast.LENGTH_SHORT).show();
+        }
+        //Toast.makeText(context, "本地存储内容为空，请尝试添加单词！", Toast.LENGTH_LONG).show();
+
+        search_cursor.close();
+        return true;
     }
 }

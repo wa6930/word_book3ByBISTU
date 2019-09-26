@@ -1,6 +1,7 @@
 package com.example.usedsharedpreferences.by.word_book3bybistu;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -14,9 +15,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Sentence;
+import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Word;
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.WordDetail;
 import com.example.usedsharedpreferences.by.word_book3bybistu.adapter.netSentenceAdapter;
 import com.example.usedsharedpreferences.by.word_book3bybistu.dbchange.DBManager;
+import com.example.usedsharedpreferences.by.word_book3bybistu.dbchange.DBwordStorage;
 import com.example.usedsharedpreferences.by.word_book3bybistu.getexamplesentence.GetSentence;
 
 import java.util.ArrayList;
@@ -44,9 +47,18 @@ public class ShowWordActivity extends AppCompatActivity {
         }
         final TextView wordName=(TextView) findViewById(R.id.search_d_wordName);
         TextView wordPhonetic=(TextView)findViewById(R.id.search_d_word_phonetic);
-        TextView wordTranslate=(TextView)findViewById(R.id.search_d_word_translation);
+        final TextView wordTranslate=(TextView)findViewById(R.id.search_d_word_translation);
         TextView wordDiscation=(TextView)findViewById(R.id.search_d_word_discation);
         ImageView readWord=(ImageView)findViewById(R.id.search_d_word_read);
+        ImageView addWordBook=(ImageView)findViewById(R.id.search_d_addword);
+        addWordBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBwordStorage dBwordStorage=new DBwordStorage(ShowWordActivity.this,"wordStore.db",null,1);
+                SQLiteDatabase database=dBwordStorage.getWritableDatabase();
+                DBManager.addWordToSqlite(database,new Word(wordName.getText().toString(),wordTranslate.getText().toString()),ShowWordActivity.this);
+            }
+        });
         readWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

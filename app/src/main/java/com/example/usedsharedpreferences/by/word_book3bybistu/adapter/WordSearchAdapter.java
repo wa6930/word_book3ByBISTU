@@ -1,6 +1,7 @@
 package com.example.usedsharedpreferences.by.word_book3bybistu.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.usedsharedpreferences.by.word_book3bybistu.R;
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Word;
+import com.example.usedsharedpreferences.by.word_book3bybistu.R;
+import com.example.usedsharedpreferences.by.word_book3bybistu.ShowWordActivity;
 
 import java.util.List;
 
@@ -59,7 +61,9 @@ public class WordSearchAdapter extends RecyclerView.Adapter<WordSearchAdapter.Se
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                Intent intent=new Intent(mContext, ShowWordActivity.class);
+                intent.putExtra("word",wordName.getText().toString());
+                mContext.startActivity(intent);
             }
         });
 //        cardView.setOnLongClickListener(new View.OnLongClickListener() {
