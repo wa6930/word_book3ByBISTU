@@ -9,12 +9,17 @@
         android:icon="@drawable/check"
         android:title="查找"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/Star_word"
+        android:icon="@drawable/star_word"
+        android:title="查看星标单词"
+        app:showAsAction="ifRoom"/>
 
 
     <item
         android:id="@+id/refresh_word"
         android:icon="@drawable/refresh"
-        android:title="刷新"
+        android:title="确认删除"
         app:showAsAction="ifRoom"/>
 
     <item

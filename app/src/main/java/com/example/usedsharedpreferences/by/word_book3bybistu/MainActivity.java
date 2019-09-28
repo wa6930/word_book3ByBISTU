@@ -298,6 +298,16 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
                 startActivityForResult(intent, 1);//返回值来添加list
 
                 break;
+                /*******星标界面*******/
+            case R.id.Star_word://点击星标
+                //Toast.makeText(this, "TODO2", Toast.LENGTH_LONG).show();
+                //Bundle bundle=new Bundle();
+                //bundle.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) wordList);
+                Intent intent2 = new Intent(MainActivity.this, StarWordActivity.class);
+
+                startActivity(intent2);//返回值来添加list
+
+                break;
 
             case R.id.action_news://点击新闻按钮
 //                Intent intent1 = new Intent(MainActivity.this, NewsIndex.class);

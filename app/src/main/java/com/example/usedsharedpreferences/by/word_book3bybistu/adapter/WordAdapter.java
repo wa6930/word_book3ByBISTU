@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -29,6 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Word;
 import com.example.usedsharedpreferences.by.word_book3bybistu.R;
 import com.example.usedsharedpreferences.by.word_book3bybistu.ShowWordActivity;
+import com.example.usedsharedpreferences.by.word_book3bybistu.dbchange.DBManager;
+import com.example.usedsharedpreferences.by.word_book3bybistu.dbchange.DBwordStorage;
 import com.example.usedsharedpreferences.by.word_book3bybistu.fragement.RightFragment;
 
 import java.util.List;
@@ -171,6 +174,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
                 menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
+
                         switch (menuItem.getItemId()) {
                             case R.id.select_menu_edi_item:
                                 Log.i(TAG, "onClick select_edit_menu: " + wordName.getText());//
@@ -220,7 +224,19 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 //                                wordStr.putString("tran",sentence_tran.getText().toString());
 //                                message.setData(wordStr);
 //                                handler.sendMessage(message);
+
                                 activityContext.deleteWord(wordName.getText().toString(),wordTranslate.getText().toString());
+                                break;
+
+                            case R.id.select_menu_add_star:
+                                Log.i(TAG, "onClick select_menu_add_star: " + wordName.getText());
+//
+                                DBwordStorage dBwordStorage=new DBwordStorage(mContext,"StarWordStore.db",null,1);
+                                SQLiteDatabase database=dBwordStorage.getWritableDatabase();
+                                DBManager.addWordToSqlite(database,new Word(wordName.getText().toString(),wordTranslate.getText().toString()),mContext);
+                                Toast.makeText(mContext,"加星成功！",Toast.LENGTH_LONG).show();
+
+
 
 
                                 break;
