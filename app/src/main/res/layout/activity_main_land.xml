@@ -43,6 +43,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/add_word" />
 
-    <include layout="@layout/content_main" />
+    <include layout="@layout/l_content_main_land" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

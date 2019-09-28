@@ -34,6 +34,7 @@ public class ShowWordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_detail_include_layout);
+
         Intent intent=getIntent();
         String word=intent.getStringExtra("word");//获得点击时的单词
         final DBManager dbManager=new DBManager(ShowWordActivity.this);//引入数据库

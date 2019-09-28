@@ -24,7 +24,7 @@ import java.util.List;
 public class SearchWordActivity extends AppCompatActivity {
     EditText searchEditText;
     ListView serchWordList;
-    ArrayList<String> wordNameList;
+    //ArrayList<String> wordNameList;
     SQLiteDatabase database;//获得dbmanager中的database
     String TAG="ErJike's searchWor";
     WordSearchAdapter wordSearchAdapter;//用于保存自定义的recyclerAdapter
@@ -56,8 +56,9 @@ public class SearchWordActivity extends AppCompatActivity {
         //wordsList.add(new Word("ceshi","测试"));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_main_activity_layout);
+
         Intent intent = getIntent();
-        wordNameList=intent.getStringArrayListExtra("wordList");//获得MainActivity中的word链表
+        //wordNameList=intent.getStringArrayListExtra("wordList");//获得MainActivity中的word链表
         final DBManager dbManager=new DBManager(SearchWordActivity.this);
         dbManager.openDatabase();
         database=dbManager.getDatabase();//获得对应数据库

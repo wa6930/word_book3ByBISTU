@@ -162,6 +162,15 @@ public class DBManager {
         search_cursor.close();
         return wordDetailArrayList;
     }
+
+    public static Cursor WordStorQueryByContentProvider(SQLiteDatabase db, Context context) {//用于精确查找某个单词在数据库中
+        String TAG = "ErJike's wordStore log in";
+        ArrayList<Word> wordDetailArrayList = new ArrayList<Word>();
+        //Log.i(TAG, "tureQuery: str:"+str);//可以获得
+        Cursor search_cursor = db.query(DBwordStorage.TABLE_NAME, new String[]{DBwordStorage.TABLE_LIST_1, DBwordStorage.TABLE_LIST_2}, DBwordStorage.TABLE_LIST_1 + " like ? ",
+                new String[]{"%%"}, null, null, null);
+        return search_cursor;
+    }
     @SuppressLint("LongLogTag")
     public static boolean addWordToSqlite(SQLiteDatabase db, Word word,Context context) {//用于添加单词到单词本
         String TAG="ErJike's wordStore log in";
@@ -190,4 +199,5 @@ public class DBManager {
         search_cursor.close();
         return true;
     }
+
 }

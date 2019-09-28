@@ -75,7 +75,6 @@ public class netSentenceAdapter extends RecyclerView.Adapter<netSentenceAdapter.
         final TextView sentence_eng = (TextView) view.findViewById(R.id.sentence_english);
         final TextView sentence_tran = (TextView) view.findViewById(R.id.sentence_translate);
 
-
         //final ImageButton Engv2 = (ImageButton) view.findViewById(R.id.buttonEngV2);//在返回视图之前，建立点击事件与映射关系
         sentence_eng.setOnClickListener(new View.OnClickListener() {//点击例句事件
             @Override

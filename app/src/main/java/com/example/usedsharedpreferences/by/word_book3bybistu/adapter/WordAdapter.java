@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.usedsharedpreferences.by.word_book3bybistu.Item.Word;
 import com.example.usedsharedpreferences.by.word_book3bybistu.R;
 import com.example.usedsharedpreferences.by.word_book3bybistu.ShowWordActivity;
+import com.example.usedsharedpreferences.by.word_book3bybistu.fragement.RightFragment;
 
 import java.util.List;
 import java.util.Locale;
@@ -36,9 +39,23 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
     private  Handler handler;
     private Context mContext;
 
+    private RightFragment rightFragment;
+
+    public void setRightFragment(RightFragment rightFragment) {
+        this.rightFragment = rightFragment;
+    }
+
+    public RightFragment getRightFragment() {
+        return rightFragment;
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
+    }
 
     private List<Word> mWordList;
     private FragmentTransaction transaction;
+
 
     public void setManager(FragmentManager manager) {
         this.manager = manager;
@@ -50,6 +67,11 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
     private FragmentManager manager;
     public TextToSpeech textToSpeech;
+    private Fragment fragment;
+
+    public Fragment getFragment(RightFragment rightFragment) {
+        return fragment;
+    }
 
     public void setTransaction(FragmentTransaction transaction) {
         this.transaction = transaction;
@@ -112,6 +134,21 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mContext.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT){
+                    Intent intent=new Intent(mContext, ShowWordActivity.class);
+                    intent.putExtra("word",wordName.getText().toString());
+                    mContext.startActivity(intent);
+
+                }
+                else{
+                    FragmentTransaction transaction=manager.beginTransaction();
+                    rightFragment=new RightFragment();
+                    rightFragment.setWord(wordName.getText().toString());
+                    rightFragment.setMcontext(mContext);
+                    transaction.replace(R.id.right_fragment,rightFragment);
+                    transaction.commit();
+                    //transaction.replace(R.id.right_fragment,)
+                }
 
 //                Log.i(TAG, "onClick Card: " + wordName.getText());
 //                if(wordTranslate.getVisibility()==View.VISIBLE){
@@ -119,9 +156,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 //                }else {
 //                    wordTranslate.setVisibility(View.VISIBLE);
 //                }
-                Intent intent=new Intent(mContext, ShowWordActivity.class);
-                intent.putExtra("word",wordName.getText().toString());
-                mContext.startActivity(intent);
+
 
 
 
@@ -143,6 +178,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
                                 chang_word.setTitle("编辑");
                                 LayoutInflater Changinflater=LayoutInflater.from(mContext);
                                 View view1=Changinflater.inflate(R.layout.change_word_layout,null);
+
                                 chang_word.setView(view1);
                                 final EditText edit_word=(EditText)view1.findViewById(R.id.cw_edit_word_change);
                                 final EditText edit_tran=(EditText)view1.findViewById(R.id.cw_edit_tran_change);
@@ -223,7 +259,6 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
         TextView wordName;
         TextView wordTranslate;
         ImageButton Amev1;
-        ImageButton Engv2;
         FragmentManager fragmentManager;
 
         public void setFragmentManager(FragmentManager fragmentManager) {
@@ -236,7 +271,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
             wordName = (TextView) view.findViewById(R.id.word_name);
             wordTranslate = (TextView) view.findViewById(R.id.word_translate);
             Amev1 = (ImageButton) view.findViewById(R.id.buttonAmeV1);
-            Engv2 = (ImageButton) view.findViewById(R.id.buttonEngV2);
+
 
         }
     }
