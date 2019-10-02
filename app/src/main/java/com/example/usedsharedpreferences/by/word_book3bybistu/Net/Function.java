@@ -40,13 +40,13 @@ public class Function {
 
         Matcher matcher = pattern.matcher(result);
 
-        StringBuffer sb = new StringBuffer();
+//        StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
             NewsItemModel model = new NewsItemModel();
-            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(1).trim().toString());
-            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(2).trim().toString());
-            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(3).trim().toString());
-            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(4).trim().toString());
+//            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(1).trim().toString());
+//            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(2).trim().toString());
+//            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(3).trim().toString());
+//            Log.i(TAG, "parseHtmlData: matcher.group():"+matcher.group(4).trim().toString());
 
             model.setNewsDetailUrl(matcher.group(4).trim());
             model.setUrlImgAddress(matcher.group(1).trim());
@@ -54,16 +54,16 @@ public class Function {
             model.setNewsSummary(matcher.group(7).trim());
             model.setNewsOrigin(matcher.group(9).trim());
 
-            sb.append("详情页地址：" + matcher.group(4).trim() + "\n");
-            sb.append("图片地址：" + matcher.group(1).trim() + "\n");
-            sb.append("标题：" + matcher.group(5).trim() + "\n");
-            sb.append("概要：" + matcher.group(7).trim() + "\n");
-            sb.append("来源："+matcher.group(9).trim()+"\n\n");
+//            sb.append("详情页地址：" + matcher.group(4).trim() + "\n");
+//            sb.append("图片地址：" + matcher.group(1).trim() + "\n");
+//            sb.append("标题：" + matcher.group(5).trim() + "\n");
+//            sb.append("概要：" + matcher.group(7).trim() + "\n");
+//            sb.append("来源："+matcher.group(9).trim()+"\n\n");
 
             list.add(model);
         }
 
-        Log.i(TAG, "爬取内容为"+sb.toString());
+//        Log.i(TAG, "爬取内容为"+sb.toString());
 
         return list;
     }

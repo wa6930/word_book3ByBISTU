@@ -33,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textIsSelectable="true"
             android:text="岭南学院"
             android:textSize="12dp" />
         <TextView

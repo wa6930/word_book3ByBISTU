@@ -80,10 +80,14 @@ public class NetNewsActivity extends AppCompatActivity {
                     mNewsListView.setAdapter(adapter);
                     //设置点击事件
                     mNewsListView.setOnItemClickListener(new ItemClickListener());
-                    Toast.makeText(getApplicationContext(), String.valueOf(list.size()), Toast.LENGTH_LONG).show();
+                    //mNewsListView.setOnLongClickListener(new ItemLongClickListener());
                     break;
+                default:
             }
+            //Toast.makeText(getApplicationContext(), String.valueOf(list.size()), Toast.LENGTH_LONG).show();
+
         }
+
     };
 
     /**
@@ -92,8 +96,14 @@ public class NetNewsActivity extends AppCompatActivity {
     public class ItemClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            NewsItemModel temp =(NewsItemModel) adapter.getItem(i);
-            Toast.makeText(getApplicationContext(), temp.getNewsTitle(), Toast.LENGTH_SHORT).show();
+            NewsItemModel temp = (NewsItemModel) adapter.getItem(i);
+            Toast.makeText(getApplicationContext(), temp.getNewsDetailUrl(), Toast.LENGTH_SHORT).show();
         }
+
     }
+    /**
+     * 新闻列表长按事件
+     */
+
+
 }
