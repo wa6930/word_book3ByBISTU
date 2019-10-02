@@ -310,8 +310,8 @@ public class MainActivity extends AppCompatActivity implements WordAdapter.delet
                 break;
 
             case R.id.action_news://点击新闻按钮
-//                Intent intent1 = new Intent(MainActivity.this, NewsIndex.class);
-//                startActivityForResult(intent1, 1);//返回值来添加list
+                Intent intent1 = new Intent(MainActivity.this, NetNewsActivity.class);
+                startActivityForResult(intent1, 1);//返回值来添加list
 
                 break;
             /***
