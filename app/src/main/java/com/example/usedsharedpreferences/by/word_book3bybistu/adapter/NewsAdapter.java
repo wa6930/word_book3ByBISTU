@@ -58,6 +58,8 @@ public class NewsAdapter extends BaseAdapter {
             viewHolder.imageView = (ImageView) view.findViewById(R.id.image_view);
             viewHolder.txtTitle = (TextView) view.findViewById(R.id.txt_title);
             viewHolder.txtSummary = (TextView) view.findViewById(R.id.txt_summary);
+            viewHolder.textOrigin=(TextView)view.findViewById(R.id.txt_Origin);
+
 
             view.setTag(viewHolder);
         } else {
@@ -72,6 +74,7 @@ public class NewsAdapter extends BaseAdapter {
         }
         viewHolder.txtTitle.setText(list.get(position).getNewsTitle());
         viewHolder.txtSummary.setText(list.get(position).getNewsSummary());
+        viewHolder.textOrigin.setText(list.get(position).getNewsOrigin());
 
 
         return view;
@@ -79,7 +82,7 @@ public class NewsAdapter extends BaseAdapter {
 
     public class ViewHolder {
         ImageView imageView;
-        TextView txtTitle, txtSummary;
+        TextView txtTitle, txtSummary,textOrigin;
     }
 
 }

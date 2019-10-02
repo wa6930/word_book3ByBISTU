@@ -29,7 +29,7 @@ public class NewsItemModel {
     }
 
     public String getNewsOrigin() {
-        return newsOrigin;
+        return "来源："+newsOrigin;
     }
 
     public Bitmap getNewsBitmap() {
