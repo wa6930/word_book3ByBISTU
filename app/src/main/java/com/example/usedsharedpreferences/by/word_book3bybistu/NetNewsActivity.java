@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -53,7 +52,7 @@ public class NetNewsActivity extends AppCompatActivity {
             public void run() {
                 //获取网络数据
                 String result = CommonTool.getRequest("http://www.globaltimes.cn/world/Top-News.html", "gbk");
-                Log.i("结果------------->", result);
+                //Log.i("结果------------->", result);
                 //解析新闻数据
                 List<NewsItemModel> list = Function.parseHtmlData(result);
 
